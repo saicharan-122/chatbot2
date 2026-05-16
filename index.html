@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="converter">
+      <h2>Unit Converter</h2>
+      <input type="number" id="value" placeholder="Enter value" />
+      <br />
+      <select id="fromUnit">
+        <option value="cm">Centimeter (cm)</option>
+        <option value="m">Meter (m)</option>
+        <option value="km">Kilometer (km)</option>
+      </select>
+      <br />
+      <select id="toUnit">
+        <option value="cm">Centimeter (cm)</option>
+        <option value="m">Meter (m)</option>
+        <option value="km">Kilometer (km)</option>
+      </select>
+      <br />
+      <button onclick="convert()">Convert</button>
+      <div class="result" id="result"></div>
+    </div>
+
+    <script>
+      function convert() {
+        const value = parseFloat(document.getElementById("value").value);
+        const from = document.getElementById("fromUnit").value;
+        const to = document.getElementById("toUnit").value;
+        let result;
+
+        if (isNaN(value)) {
+          document.getElementById("result").innerText =
+            "Please enter a valid number";
+          return;
+        }
+
+        // Convert input to meters first
+        let valueInMeters;
+        switch (from) {
+          case "cm":
+            valueInMeters = value / 100;
+            break;
+          case "m":
+            valueInMeters = value;
+            break;
+          case "km":
+            valueInMeters = value * 1000;
+            break;
+        }
+
+        // Convert meters to target unit
+        switch (to) {
+          case "cm":
+            result = valueInMeters * 100;
+            break;
+          case "m":
+            result = valueInMeters;
+            break;
+          case "km":
+            result = valueInMeters / 1000;
+            break;
+        }
+
+        document.getElementById("result").innerText =
+          `${value} ${from} = ${result} ${to}`;
+      }
+    </script>
+  </body>
+</html>
